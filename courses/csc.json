@@ -1,0 +1,509 @@
+({
+    department: 'Computer Science',
+    years: 4,
+    courses: [{
+        course_code: 'BIO 101',
+        unit: 3,
+        status: "E",
+        title: "General Biology I",
+        level: 100,
+        semester: "Harmattan"
+    },
+    {
+        course_code: 'CHM 101',
+        unit: 3,
+        status: "R",
+        title: "General Chemistry I",
+        level: 100,
+        semester: "Harmattan"
+    },
+    {
+        course_code: 'CSC 101',
+        unit: 3,
+        status: "C",
+        title: "Introduction to Computer Science",
+        level: 100,
+        semester: "Harmattan"
+    },
+    {
+        course_code: 'CSC 102',
+        unit: 3,
+        status: "C",
+        title: "Introduction to Problem Solving",
+        level: 100,
+        semester: "Rain"
+    },
+    {
+        course_code: 'GST 111',
+        unit: 2,
+        status: "C",
+        title: "Communication in English I",
+        level: 100,
+        semester: "Harmattan"
+    },
+    {
+        course_code: 'GST 112',
+        unit: 2,
+        status: "E",
+        title: "Logic, Philosophy & Human Existence",
+        level: 100,
+        semester: "Rain"
+    },
+    {
+        course_code: 'GST 113',
+        unit: 2,
+        status: "R",
+        title: "Nigerian Peoples and Culture",
+        level: 100,
+        semester: "Harmattan"
+    },
+    {
+        course_code: 'GST 121',
+        unit: 2,
+        status: "R",
+        title: "Use of Library, Study Skills and ICT",
+        level: 100,
+        semester: "Harmattan"
+    },
+    {
+        course_code: 'MTH 101',
+        unit: 3,
+        status: "R",
+        title: "General Mathematics I",
+        level: 100,
+        semester: "Harmattan"
+    },
+    {
+        course_code: 'MTH 102',
+        unit: 3,
+        status: "R",
+        title: "General Mathematics II",
+        level: 100,
+        semester: "Rain"
+    },
+    {
+        course_code: 'PHY 101',
+        unit: 3,
+        status: "R",
+        title: "General Physics I",
+        level: 100,
+        semester: "Harmattan"
+    },
+    {
+        course_code: 'PHY 102',
+        unit: 3,
+        status: "R",
+        title: "General Physics II",
+        level: 100,
+        semester: "Rain"
+    },
+    {
+        course_code: 'PHY 107',
+        unit: 1,
+        status: "R",
+        title: "General Physics Practical I",
+        level: 100,
+        semester: "Harmattan"
+    },
+    {
+        course_code: 'PHY 108',
+        unit: 1,
+        status: "R",
+        title: "General Physics Practical II",
+        level: 100,
+        semester: "Rain"
+    },
+    {
+        course_code: 'CSC 201',
+        unit: 3,
+        status: "C",
+        title: "Computer Programming I",
+        level: 200,
+        semester: "Harmattan"
+    },
+    {
+        course_code: 'CSC 202',
+        unit: 3,
+        status: "C",
+        title: "Computer Programming II",
+        level: 200,
+        semester: "Rain"
+    },
+    {
+        course_code: 'CSC 204',
+        unit: 3,
+        status: "R",
+        title: "Fundamentals of Data Structures",
+        level: 200,
+        semester: "Rain"
+    },
+    {
+        course_code: 'CSC 205',
+        unit: 3,
+        status: "C",
+        title: "Operating Systems I",
+        level: 200,
+        semester: "Harmattan"
+    },
+    {
+        course_code: 'CSC 208',
+        unit: 3,
+        status: "R",
+        title: "Discrete Structure",
+        level: 200,
+        semester: "Rain"
+    },
+    {
+        course_code: 'CSC 212',
+        unit: 3,
+        status: "R",
+        title: "Computer Hardware",
+        level: 200,
+        semester: "Rain"
+    },
+    {
+        course_code: 'CSC 218',
+        unit: 3,
+        status: "R",
+        title: "Foundations of Sequential Program",
+        level: 200,
+        semester: "Rain"
+    },
+    {
+        course_code: 'CSC 299',
+        unit: 3,
+        status: "C",
+        title: "Industrial Training",
+        level: 200,
+        semester: "Rain"
+    },
+    {
+        course_code: 'GST 122',
+        unit: 2,
+        status: "C",
+        title: "Communication in English II",
+        level: 200,
+        semester: "Rain"
+    },
+    {
+        course_code: 'GST 125',
+        unit: 2,
+        status: "R",
+        title: "Contemporary Health Issues",
+        level: 200,
+        semester: "Harmattan"
+    },
+    {
+        course_code: 'GST 211',
+        unit: 2,
+        status: "R",
+        title: "Environmental & Sustainable Development",
+        level: 200,
+        semester: "Harmattan"
+    },
+    {
+        course_code: 'GST 223',
+        unit: 2,
+        status: "R",
+        title: "Introduction to Entrepreneurship",
+        level: 200,
+        semester: "Harmattan"
+    },
+    {
+        course_code: 'MTH 201',
+        unit: 3,
+        status: "R",
+        title: "Mathematical Methods",
+        level: 200,
+        semester: "Harmattan"
+    },
+    {
+        course_code: 'PHY 202',
+        unit: 3,
+        status: "R",
+        title: "Electric Circuits and Electronics",
+        level: 200,
+        semester: "Rain"
+    },
+    {
+        course_code: 'CSC 301',
+        unit: 3,
+        status: "C",
+        title: "Structured Programming",
+        level: 300,
+        semester: "Harmattan"
+    },
+    {
+        course_code: 'CSC 302',
+        unit: 3,
+        status: "R",
+        title: "Object-Oriented Programming",
+        level: 300,
+        semester: "Rain"
+    },
+    {
+        course_code: 'CSC 304',
+        unit: 3,
+        status: "C",
+        title: "Data Management I",
+        level: 300,
+        semester: "Rain"
+    },
+    {
+        course_code: 'CSC 305',
+        unit: 3,
+        status: "C",
+        title: "Operating Systems II",
+        level: 300,
+        semester: "Harmattan"
+    },
+    {
+        course_code: 'CSC 310',
+        unit: 3,
+        status: "R",
+        title: "Algorithms and Complexity Analysis",
+        level: 300,
+        semester: "Harmattan"
+    },
+    {
+        course_code: 'CSC 315',
+        unit: 3,
+        status: "R",
+        title: "Computer Architecture and Organization I",
+        level: 300,
+        semester: "Harmattan"
+    },
+    {
+        course_code: 'CSC 314',
+        unit: 3,
+        status: "R",
+        title: "Computer Architecture and Organization II",
+        level: 300,
+        semester: "Rain"
+    },
+    {
+        course_code: 'CSC 316',
+        unit: 3,
+        status: "R",
+        title: "Compiler Construction I",
+        level: 300,
+        semester: "Rain"
+    },
+    {
+        course_code: 'CSC 321',
+        unit: 3,
+        status: "R",
+        title: "Systems Analysis and Design",
+        level: 300,
+        semester: "Harmattan"
+    },
+    {
+        course_code: 'CSC 322',
+        unit: 4,
+        status: "C",
+        title: "Survey of Programming Language",
+        level: 300,
+        semester: "Rain"
+    },
+    {
+        course_code: 'CSC 333',
+        unit: 3,
+        status: "R",
+        title: "Computational Science & Numerical Methods",
+        level: 300,
+        semester: "Harmattan"
+    },
+    {
+        course_code: 'CSC 399',
+        unit: 3,
+        status: "C",
+        title: "Industrial Training II",
+        level: 300,
+        semester: "Rain"
+    },
+    {
+        course_code: 'GST 222',
+        unit: 2,
+        status: "E",
+        title: "Peace Studies and Conflict Resolution",
+        level: 300,
+        semester: "Rain"
+    },
+    {
+        course_code: 'GST 224',
+        unit: 2,
+        status: "R",
+        title: "Leadership Skills",
+        level: 300,
+        semester: "Rain"
+    },
+    {
+        course_code: 'GST 311',
+        unit: 2,
+        status: "R",
+        title: "Entrepreneurship",
+        level: 300,
+        semester: "Harmattan"
+    },
+    {
+        course_code: 'CSC 401',
+        unit: 3,
+        status: "R",
+        title: "Organisation of Programming Languages",
+        level: 400,
+        semester: "Harmattan"
+    },
+    {
+        course_code: 'CSC 403',
+        unit: 4,
+        status: "C",
+        title: "Software Engineering",
+        level: 400,
+        semester: "Harmattan"
+    },
+    {
+        course_code: 'CSC 404',
+        unit: 3,
+        status: "C",
+        title: "Data Management II",
+        level: 400,
+        semester: "Rain"
+    },
+    {
+        course_code: 'CSC 411',
+        unit: 3,
+        status: "R",
+        title: "Artificial Intelligence",
+        level: 400,
+        semester: "Harmattan"
+    },
+    {
+        course_code: 'CSC 421',
+        unit: 3,
+        status: "R",
+        title: "Net-Centric Computing",
+        level: 400,
+        semester: "Harmattan"
+    },
+    {
+        course_code: 'CSC 423',
+        unit: 3,
+        status: "C",
+        title: "Computer Networks/Communications",
+        level: 400,
+        semester: "Harmattan"
+    },
+    {
+        course_code: 'CSC 441',
+        unit: 2,
+        status: "R",
+        title: "Human Computer Interface",
+        level: 400,
+        semester: "Harmattan"
+    },
+    {
+        course_code: 'CSC 499',
+        unit: 6,
+        status: "C",
+        title: "Project",
+        level: 400,
+        semester: "Rain"
+    },
+    {
+        course_code: 'CSC 405',
+        unit: 3,
+        status: "E",
+        title: "Special Topics in Software Engineering",
+        level: 400,
+        semester: "Harmattan"
+    },
+    {
+        course_code: 'CSC 406',
+        unit: 3,
+        status: "E",
+        title: "Queuing Systems Performance Evaluation",
+        level: 400,
+        semester: "Rain"
+    },
+    {
+        course_code: 'CSC 408',
+        unit: 3,
+        status: "E",
+        title: "Computer System Performance Evaluation",
+        level: 400,
+        semester: "Rain"
+    },
+    {
+        course_code: 'CSC 416',
+        unit: 3,
+        status: "E",
+        title: "Compiler Construction II",
+        level: 400,
+        semester: "Rain"
+    },
+    {
+        course_code: 'CSC 422',
+        unit: 3,
+        status: "E",
+        title: "Project Management",
+        level: 400,
+        semester: "Rain"
+    },
+    {
+        course_code: 'CSC 432',
+        unit: 3,
+        status: "E",
+        title: "Distributed Computer System",
+        level: 400,
+        semester: "Rain"
+    },
+    {
+        course_code: 'CSC 433',
+        unit: 2,
+        status: "E",
+        title: "Computer Graphics and Visualization",
+        level: 400,
+        semester: "Harmattan"
+    },
+    {
+        course_code: 'CSC 435',
+        unit: 3,
+        status: "E",
+        title: "Optimization Techniques",
+        level: 400,
+        semester: "Harmattan"
+    },
+    {
+        course_code: 'CSC 452',
+        unit: 3,
+        status: "E",
+        title: "Formal Models of Compilation",
+        level: 400,
+        semester: "Rain"
+    },
+    {
+        course_code: 'CSC 461',
+        unit: 2,
+        status: "E",
+        title: "Information Technology Law",
+        level: 400,
+        semester: "Harmattan"
+    },
+    {
+        course_code: 'CSC 482',
+        unit: 3,
+        status: "E",
+        title: "Modelling and Simulation",
+        level: 400,
+        semester: "Rain"
+    },
+    {
+        course_code: 'CSC 492',
+        unit: 3,
+        status: "E",
+        title: "Special Topics in Computer Science",
+        level: 400,
+        semester: "Rain"
+    },
+]
+});
