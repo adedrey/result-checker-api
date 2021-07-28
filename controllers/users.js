@@ -5,6 +5,7 @@ const Result = require('../models/result');
 const Test = require('../models/test');
 const bcrypt = require('bcryptjs');
 const io = require('../socket');
+const utils = require('../lib/utils');
 const {
     cloudinary
 } = require('../config/cloudinary');
@@ -363,25 +364,34 @@ function calculateUnitsPassed(semesterArray) {
     return total;
 }
 exports.postProfile = async (req, res, next) => {
-    const password = req.body.password
+    const password = req.body.password;
     const newpassword = req.body.newpassword;
     try {
         const user = await User.findOne({
             _id: req.enduser._id
         });
-        const doMatch = await bcrypt.compare(password, user.password);
-        if (!doMatch) {
+        if (password !== null && newpassword !== null) {
+            const isValid = utils.validPassword(password, user.hash, user.salt);
+            if (!isValid) {
+                return res.status(401).json({
+                    message: "Password is not correct!"
+                });
+            }
+            const saltHash = utils.genPassword(newpassword);
+            const salt = saltHash.salt;
+            const hash = saltHash.hash;
+            user.hash = hash;
+            user.salt = salt;
+            const result = await user.save();
+            res.status(200).json({
+                message: "Profile has been updated!",
+                user: result
+            });
+        } else {
             return res.status(401).json({
-                message: "Password does not match!"
-            })
+                message: "Password is invalid!"
+            });
         }
-        const hashPassword = await bcrypt.hash(newpassword, 12);
-        user.password = hashPassword;
-        const result = await user.save();
-        res.status(200).json({
-            message: "Profile has been updated!",
-            user: result
-        });
     } catch (err) {
         res.status(500).json({
             message: "Sorry, we couldn't complete your request. Please try again in a moment."

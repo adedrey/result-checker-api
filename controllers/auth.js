@@ -6,6 +6,7 @@ const Student = require('../models/students');
 const Complaint = require('../models/complaints');
 const Staff = require('../models/staff');
 const jwt = require('jsonwebtoken');
+const utils = require('../lib/utils');
 const crypto = require("crypto");
 const nodemailer = require('nodemailer');
 const sendgridTransport = require('nodemailer-sendgrid-transport');
@@ -86,6 +87,7 @@ exports.postAddUser = (req, res, next) => {
 exports.postUserLogin = async (req, res, next) => {
     const matric_no = (req.body.matric_no).toUpperCase().trim()
     const password = req.body.password;
+
     try {
         const user = await User.findOne({
             matric_no: matric_no
@@ -95,29 +97,25 @@ exports.postUserLogin = async (req, res, next) => {
                 message: "Access Denied!"
             });
         }
+        const isValid = utils.validPassword(password, user.hash, user.salt);
         if (!user.is_active) {
             return res.status(401).json({
                 message: "Sorry, your account has been temporarily block. Kindly contact the Administrator for further directives."
             });
         }
-        const doMatch = await bcrypt.compare(password, user.password);
-        if (!doMatch) {
+        if (isValid) {
+            const tokenObject = utils.issueJWT(user);
+            res.status(200).json({
+                success: true,
+                user: user,
+                token: tokenObject.token,
+                expiresIn: tokenObject.expires
+            })
+        } else {
             return res.status(401).json({
                 message: "Access Denied!"
             });
         }
-        const token = jwt.sign({
-            name: user.surname,
-            userId: user._id
-        }, 'secret_key_should_be_longer', {
-            expiresIn: '1h'
-        });
-        res.status(200).json({
-            token: token,
-            expiresIn: "3600",
-            name: user.surname + " " + user.firstname,
-            image: user.image
-        });
     } catch (err) {
         res.status(500).json({
             message: "Sorry, we couldn't complete your request. Please try again in a moment."
@@ -195,7 +193,10 @@ exports.getUserNewpassword = async (req, res, next) => {
 }
 exports.postUserNewPassword = async (req, res, next) => {
     const token = req.params.token;
-    const newPassword = req.body.password;
+    const password = req.body.password;
+    const saltHash = utils.genPassword(password);
+    const salt = saltHash.salt;
+    const hash = saltHash.hash;
     const userId = req.body.userId;
     try {
         const user = await User.findOne({
@@ -210,8 +211,9 @@ exports.postUserNewPassword = async (req, res, next) => {
                 message: 'Invalid credentials! Try again!'
             })
         }
-        const hashedPassword = await bcrypt.hash(newPassword, 12);
-        user.password = hashedPassword;
+        
+        user.hash = hash;
+        user.salt = salt;
         user.resetToken = undefined;
         user.resetTokenExpiration = undefined;
         const result = await user.save();
@@ -243,21 +245,18 @@ exports.postAdminLogin = async (req, res, next) => {
                 message: 'Access Denied!'
             })
         }
-        const doMatch = await bcrypt.compare(password, user.password);
-        if (!doMatch) {
+        const isValid = utils.validPassword(password, user.hash, user.salt);
+        if (!isValid) {
             return res.status(401).json({
                 message: "Access Declined!"
             });
         }
-        const token = jwt.sign({
-            adminId: user._id
-        }, 'secret_to_the_admin_must_not_be_known', {
-            expiresIn: '1h'
-        });
+        const tokenObject = utils.issueJWT(user);
         res.status(200).json({
-            token: token,
-            expiresIn: "3600"
-        });
+            success: true,
+            token: tokenObject.token,
+            expiresIn: tokenObject.expires
+        })
     } catch (err) {
         res.status(500).json({
             message: "Sorry, we couldn't complete your request. Please try again in a moment."
@@ -344,27 +343,25 @@ exports.postStaffLogin = async (req, res, next) => {
                 message: "Access Denied!"
             });
         }
+        const isValid = utils.validPassword(password, user.hash, user.salt);
         if (!user.is_active) {
             return res.status(401).json({
                 message: "Sorry, your account has been temporarily block. Kindly contact the Administrator for further directives."
             });
         }
-        const doMatch = await bcrypt.compare(password, user.password);
-        if (!doMatch) {
+        if (isValid) {
+            const tokenObject = utils.issueJWT(user);
+            res.status(200).json({
+                success: true,
+                user: user,
+                token: tokenObject.token,
+                expiresIn: tokenObject.expires
+            })
+        } else {
             return res.status(401).json({
                 message: "Access Denied!"
             });
         }
-        const token = jwt.sign({
-            name: user.surname,
-            staffId: user._id
-        }, 'secret_key_should_be_longer', {
-            expiresIn: '1h'
-        });
-        res.status(200).json({
-            token: token,
-            expiresIn: "3600"
-        });
     } catch (err) {
         res.status(500).json({
             message: "Sorry, we couldn't complete your request. Please try again in a moment."
@@ -442,7 +439,10 @@ exports.getStaffNewpassword = async (req, res, next) => {
 }
 exports.postStaffNewPassword = async (req, res, next) => {
     const token = req.params.token;
-    const newPassword = req.body.password;
+    const password = req.body.password;
+    const saltHash = utils.genPassword(password);
+    const salt = saltHash.salt;
+    const hash = saltHash.hash;
     const lecturerId = req.body.lecturerId;
     try {
         const user = await Lecturer.findOne({
@@ -458,7 +458,8 @@ exports.postStaffNewPassword = async (req, res, next) => {
             })
         }
         const hashedPassword = await bcrypt.hash(newPassword, 12)
-        user.password = hashedPassword;
+        user.hash = hash;
+        user.salt = salt;
         user.resetToken = undefined;
         user.resetTokenExpiration = undefined;
         const result = await user.save();

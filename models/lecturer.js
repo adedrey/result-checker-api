@@ -21,9 +21,11 @@ const lecturerSchema = new Schema({
     email: {
         type: String
     },
-    password: {
-        type: String,
-        required: true
+    hash: {
+        type: String
+    },
+    salt: {
+        type: String
     },
     role: {
         type: String,

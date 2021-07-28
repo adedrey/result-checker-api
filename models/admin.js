@@ -7,10 +7,12 @@ const adminSchema = new Schema({
     type : String,
     unique : true
   },
-  password : {
-    required : true,
-    type : String
-  }
+  hash: {
+    type: String
+  },
+  salt: {
+      type: String
+  },
 });
 
 adminSchema.plugin(uniqueValidator);

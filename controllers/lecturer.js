@@ -7,6 +7,7 @@ const bcrypt = require('bcryptjs');
 const fs = require("fs");
 const fastcsv = require("fast-csv");
 const io = require('../socket');
+const utils = require('../lib/utils');
 const {
     cloudinary
 } = require('../config/cloudinary');
@@ -370,24 +371,27 @@ exports.postProfile = async (req, res, next) => {
     const name = req.body.name;
     const rank = req.body.rank;
     const department = req.body.department;
-    const password = req.body.password
     const newpassword = req.body.newpassword;
+    const password = req.body.password;
     try {
         const user = await Lecturer.findOne({
             _id: req.user._id
         })
-        if (password != null) {
-            const doMatch = await bcrypt.compare(password, user.password);
-            if (!doMatch) {
+        if (password !== null && newpassword !== null) {
+            const isValid = utils.validPassword(password, user.hash, user.salt);
+            if (!isValid) {
                 return res.status(401).json({
-                    message: "Password does not match!"
-                })
+                    message: "Password is not correct!"
+                });
             }
-            const hashPassword = await bcrypt.hash(newpassword, 12);
+            const saltHash = utils.genPassword(newpassword);
+            const salt = saltHash.salt;
+            const hash = saltHash.hash;
+            user.hash = hash;
+            user.salt = salt;
             user.name = name;
             user.rank = rank;
             user.department = department;
-            user.password = hashPassword;
             const result = await user.save();
             res.status(200).json({
                 message: "Profile has been updated!",
@@ -404,6 +408,7 @@ exports.postProfile = async (req, res, next) => {
             });
         }
     } catch (err) {
+        console.log(err)
         res.status(500).json({
             message: "Sorry, we couldn't complete your request. Please try again in a moment."
         })

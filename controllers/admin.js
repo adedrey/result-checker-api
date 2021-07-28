@@ -9,6 +9,7 @@ const bcrypt = require('bcryptjs');
 const io = require('../socket');
 const fs = require("fs");
 const fastcsv = require("fast-csv");
+const utils = require('../lib/utils');
 // const nodemailer = require('nodemailer');
 // const sendgridTransport = require('nodemailer-sendgrid-transport');
 // const transporter = nodemailer.createTransport(sendgridTransport({
@@ -189,7 +190,9 @@ exports.deleteAssignment = async (req, res, next) => {
 exports.postPreRegisterStudent = async (req, res, next) => {
     try {
         const password = '12345678';
-        const hashedPassword = await bcrypt.hash(password, 12);
+        const saltHash = utils.genPassword(password);
+        const salt = saltHash.salt;
+        const hash = saltHash.hash;
         let stream = fs.createReadStream(req.file.path);
         let csvData = [];
         let csvStream = fastcsv
@@ -203,7 +206,8 @@ exports.postPreRegisterStudent = async (req, res, next) => {
                     rank: data[5],
                     moe: data[6],
                     yoe: data[7],
-                    password: hashedPassword
+                    hash: hash,
+                    salt: salt
                 });
             })
             .on("end", async function () {
@@ -246,6 +250,7 @@ function checkKeyDuplicate(csvData) {
     }
     return unique;
 }
+
 function checkStaffKeyDuplicate(csvData) {
     var co = {};
     var unique = true;
@@ -263,7 +268,9 @@ function checkStaffKeyDuplicate(csvData) {
 exports.postPreRegisterStaff = async (req, res, next) => {
     try {
         const password = '12345678';
-        const hashedPassword = await bcrypt.hash(password, 12);
+        const saltHash = utils.genPassword(password);
+        const salt = saltHash.salt;
+        const hash = saltHash.hash;
         let stream = fs.createReadStream(req.file.path);
         let csvData = [];
         let csvStream = fastcsv
@@ -274,7 +281,8 @@ exports.postPreRegisterStaff = async (req, res, next) => {
                     staff_no: data[2],
                     rank: data[3],
                     department: data[4],
-                    password: hashedPassword
+                    hash: hash,
+                    salt: salt
                 });
             })
             .on("end", async function () {
@@ -446,18 +454,27 @@ exports.postProfile = async (req, res, next) => {
         const user = await Admin.findOne({
             _id: req.admin._id
         });
-        const doMatch = await bcrypt.compare(password, user.password);
-        if (!doMatch) {
-            return res.status(401).json({
-                message: "Password does not match!"
+        if (password !== null && newpassword !== null) {
+            const isValid = utils.validPassword(password, user.hash, user.salt);
+            if (!isValid) {
+                return res.status(401).json({
+                    message: "Password is not correct!"
+                });
+            }
+            const saltHash = utils.genPassword(newpassword);
+            const salt = saltHash.salt;
+            const hash = saltHash.hash;
+            user.hash = hash;
+            user.salt = salt;
+            const result = await user.save();
+            res.status(200).json({
+                message: "Profile has been updated!"
             })
+        } else {
+            return res.status(401).json({
+                message: "Password is invalid!"
+            });
         }
-        const hashPassword = await bcrypt.hash(newpassword, 12);
-        user.password = hashPassword;
-        const result = await user.save();
-        res.status(200).json({
-            message: "Profile has been updated!"
-        })
     } catch (err) {
         res.status(500).json({
             message: "Sorry, we couldn't complete your request. Please try again in a moment."

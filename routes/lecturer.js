@@ -6,27 +6,29 @@ const lecturerController = require('../controllers/lecturer');
 
 const lecturerData = require('../middleware/lecturerData');
 
+const passport = require('passport');
+
 const isLecturerAuth = require('../middleware/isLecturerAuth');
 
 const file = require('../middleware/file');
 
-router.post('/assignment', [isLecturerAuth, lecturerData], lecturerController.postAddAssignment);
+router.post('/assignment', [passport.authenticate('staff', {session: false}), isLecturerAuth, lecturerData], lecturerController.postAddAssignment);
 
-router.get('/is-hod', [isLecturerAuth, lecturerData], lecturerController.getStaffRole);
+router.get('/is-hod', [passport.authenticate('staff', {session: false}), isLecturerAuth, lecturerData], lecturerController.getStaffRole);
 
-router.get('/assignments', [isLecturerAuth, lecturerData], lecturerController.getAssignments);
+router.get('/assignments', [passport.authenticate('staff', {session: false}), isLecturerAuth, lecturerData], lecturerController.getAssignments);
 
-router.get('/assignment/:assignmentId', [isLecturerAuth, lecturerData], lecturerController.getAssignmentById);
+router.get('/assignment/:assignmentId', [passport.authenticate('staff', {session: false}), isLecturerAuth, lecturerData], lecturerController.getAssignmentById);
 
-router.delete('/assignment/:assignmentId', [isLecturerAuth, lecturerData], lecturerController.deleteAssignment);
+router.delete('/assignment/:assignmentId', [passport.authenticate('staff', {session: false}), isLecturerAuth, lecturerData], lecturerController.deleteAssignment);
 
-router.get('/profile', [isLecturerAuth, lecturerData], lecturerController.getProfile);
+router.get('/profile', [passport.authenticate('staff', {session: false}), isLecturerAuth, lecturerData], lecturerController.getProfile);
 
-router.post('/profile', [isLecturerAuth, lecturerData], lecturerController.postProfile);
+router.post('/profile', [passport.authenticate('staff', {session: false}), isLecturerAuth, lecturerData], lecturerController.postProfile);
 
-router.post('/result/upload', [isLecturerAuth, lecturerData, file], lecturerController.postUploadResult);
+router.post('/result/upload', [passport.authenticate('staff', {session: false}), isLecturerAuth, lecturerData, file], lecturerController.postUploadResult);
 
-router.post('/result/test/upload', [isLecturerAuth, lecturerData, file], lecturerController.postTestUploadResult);
+router.post('/result/test/upload', [passport.authenticate('staff', {session: false}), isLecturerAuth, lecturerData, file], lecturerController.postTestUploadResult);
 
 
 

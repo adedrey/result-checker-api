@@ -1,10 +1,13 @@
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+const fs = require('fs');
+const path = require('path');
+const pathToKey = path.join(__dirname, '..', 'id_rsa_pub.pem');
+const PRIV_KEY = fs.readFileSync(pathToKey, 'utf8');
 module.exports = (req, res, next) => {
     try{
-        const token = req.headers.adminauthorization.split(" ")[1];
-        // console.log(token);
-        const decodedToken = jwt.verify(token, 'secret_to_the_admin_must_not_be_known');
-        req.adminId = decodedToken.adminId;
+        const token = req.headers.authorization.split(" ")[1];
+        const decodedToken = jwt.verify(token, PRIV_KEY);
+        req.adminId = decodedToken.sub;
         // console.log(req.adminId);
         next()
     } catch(error){

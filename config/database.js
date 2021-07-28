@@ -3,8 +3,8 @@ const { postTestUploadResult } = require('../controllers/lecturer');
 const Course = require('../models/courses');
 const Result = require('../models/result');
 const Test = require('../models/test');
-const MongoDBURI = 'mongodb+srv://klez:' + process.env.MONGO_ATLAS_PW +'@cluster0-nm91y.mongodb.net/afit';
-// const MongoDBURI = 'mongodb://127.0.0.1:27017/afit';
+// const MongoDBURI = 'mongodb+srv://klez:' + process.env.MONGO_ATLAS_PW +'@cluster0-nm91y.mongodb.net/afit';
+const MongoDBURI = 'mongodb://127.0.0.1:27017/afit';
 const connectDB = async () => {
     try {
         const conn = await mongoose.connect(MongoDBURI, {

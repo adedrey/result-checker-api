@@ -35,9 +35,11 @@ const userSchema = new Schema({
         type: String,
         lowercase: true
     },
-    password: {
-        type: String,
-        required: true
+    hash: {
+        type: String
+    },
+    salt: {
+        type: String
     },
     image : {
         type : String,

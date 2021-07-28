@@ -6,46 +6,48 @@ const adminController = require('../controllers/admin');
 
 const adminData = require('../middleware/adminData');
 
+const passport = require('passport');
+
 const isAdminAuth = require('../middleware/isAdminAuth');
 
 const file = require('../middleware/file');
 
-router.get('/complaints', [isAdminAuth, adminData], adminController.getComplaints);
+router.get('/complaints', [passport.authenticate('admin', {session: false}), isAdminAuth, adminData], adminController.getComplaints);
 
-router.post('/complaints', [isAdminAuth, adminData], adminController.updateComplaintById);
+router.post('/complaints', [passport.authenticate('admin', {session: false}), isAdminAuth, adminData], adminController.updateComplaintById);
 
-router.post('/assignment', [isAdminAuth, adminData], adminController.postAddAssignment);
+router.post('/assignment', [passport.authenticate('admin', {session: false}), isAdminAuth, adminData], adminController.postAddAssignment);
 
-router.post('/students/register', [isAdminAuth, adminData, file], adminController.postPreRegisterStudent);
+router.post('/students/register', [passport.authenticate('admin', {session: false}), isAdminAuth, adminData, file], adminController.postPreRegisterStudent);
 
-router.post('/staff/register', [isAdminAuth, adminData, file], adminController.postPreRegisterStaff);
+router.post('/staff/register', [passport.authenticate('admin', {session: false}), isAdminAuth, adminData, file], adminController.postPreRegisterStaff);
 
-router.get('/assignments', [isAdminAuth, adminData], adminController.getAssignments);
+router.get('/assignments', [passport.authenticate('admin', {session: false}), isAdminAuth, adminData], adminController.getAssignments);
 
-router.get('/assignment/:assignmentId', [isAdminAuth, adminData], adminController.getAssignmentById);
+router.get('/assignment/:assignmentId', [passport.authenticate('admin', {session: false}), isAdminAuth, adminData], adminController.getAssignmentById);
 
-router.delete('/assignment/:assignmentId', [isAdminAuth, adminData], adminController.deleteAssignment);
+router.delete('/assignment/:assignmentId', [passport.authenticate('admin', {session: false}), isAdminAuth, adminData], adminController.deleteAssignment);
 
-router.get('/complaints/:complaintId', [isAdminAuth, adminData], adminController.getComplaintById);
+router.get('/complaints/:complaintId', [passport.authenticate('admin', {session: false}), isAdminAuth, adminData], adminController.getComplaintById);
 
-router.delete('/complaints/:complaintId', [isAdminAuth, adminData], adminController.deleteComplaintById);
+router.delete('/complaints/:complaintId', [passport.authenticate('admin', {session: false}), isAdminAuth, adminData], adminController.deleteComplaintById);
 
-router.get('/users', [isAdminAuth, adminData], adminController.getUsers);
+router.get('/users', [passport.authenticate('admin', {session: false}), isAdminAuth, adminData], adminController.getUsers);
 
-router.get('/lecturers', [isAdminAuth, adminData], adminController.getLecturers);
+router.get('/lecturers', [passport.authenticate('admin', {session: false}), isAdminAuth, adminData], adminController.getLecturers);
 
-router.delete('/lecturers/:lecturerId', [isAdminAuth, adminData], adminController.deleteLecturer);
+router.delete('/lecturers/:lecturerId', [passport.authenticate('admin', {session: false}), isAdminAuth, adminData], adminController.deleteLecturer);
 
-router.get('/lecturers/:lecturerId', [isAdminAuth, adminData], adminController.postLecturerActive);
+router.get('/lecturers/:lecturerId', [passport.authenticate('admin', {session: false}), isAdminAuth, adminData], adminController.postLecturerActive);
 
-router.delete('/users/:userId', [isAdminAuth, adminData], adminController.deleteUser);
+router.delete('/users/:userId', [passport.authenticate('admin', {session: false}), isAdminAuth, adminData], adminController.deleteUser);
 
-router.get('/users/:userId', [isAdminAuth, adminData], adminController.postUserActive);
+router.get('/users/:userId', [passport.authenticate('admin', {session: false}), isAdminAuth, adminData], adminController.postUserActive);
 
-router.get('/students', [isAdminAuth, adminData], adminController.getPreregisteredStudent);
+router.get('/students', [passport.authenticate('admin', {session: false}), isAdminAuth, adminData], adminController.getPreregisteredStudent);
 
-router.get('/staff', [isAdminAuth, adminData], adminController.getPreregisteredStaff);
+router.get('/staff', [passport.authenticate('admin', {session: false}), isAdminAuth, adminData], adminController.getPreregisteredStaff);
 
-router.post('/profile', [isAdminAuth, adminData], adminController.postProfile);
+router.post('/profile', [passport.authenticate('admin', {session: false}), isAdminAuth, adminData], adminController.postProfile);
 
 module.exports = router;
