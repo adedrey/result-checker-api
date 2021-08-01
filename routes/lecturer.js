@@ -12,6 +12,12 @@ const isLecturerAuth = require('../middleware/isLecturerAuth');
 
 const file = require('../middleware/file');
 
+// Stripe Controller
+
+const stripeController = require('../controllers/stripe');
+
+// Lecturers Routes
+
 router.post('/assignment', [passport.authenticate('staff', {session: false}), isLecturerAuth, lecturerData], lecturerController.postAddAssignment);
 
 router.get('/is-hod', [passport.authenticate('staff', {session: false}), isLecturerAuth, lecturerData], lecturerController.getStaffRole);
@@ -30,7 +36,9 @@ router.post('/result/upload', [passport.authenticate('staff', {session: false}),
 
 router.post('/result/test/upload', [passport.authenticate('staff', {session: false}), isLecturerAuth, lecturerData, file], lecturerController.postTestUploadResult);
 
+// Strippe implementation
 
+router.post('/order', [passport.authenticate('staff', {session: false}), isLecturerAuth, lecturerData], stripeController.create)
 
 
 module.exports = router;
